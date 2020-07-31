@@ -18,14 +18,16 @@ function clean() {
     document.getElementById('calc_display').value = '';
 };
 
-
+//SUBMIT BUTTON HANDLER
 function isMatched() {
     let generatePin = document.getElementById('generate_display').value;
     let displayPin = document.getElementById('calc_display').value;
 
     if (generatePin == displayPin) {
-        return document.getElementById('matched').style.display = 'block';
+        document.getElementById('matched').style.display = 'block';
+        document.getElementById('mis_matched').style.display = 'none';
     } else {
-        return document.getElementById('mis_matched').style.display = 'block';
+        document.getElementById('matched').style.display = 'none';
+        document.getElementById('mis_matched').style.display = 'block';
     }
 };
