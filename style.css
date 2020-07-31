@@ -105,6 +105,6 @@ input[type="text"]:focus {
   margin-top: 10px;
 }
 #matched,
-#mismatched {
+#mis_matched {
   display: none;
 }
