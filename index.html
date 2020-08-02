@@ -40,12 +40,14 @@
                                 <div onclick="insert('3')" class="button">3</div>
                             </div>
                             <div class="calc-button-row">
-                                <div onclick="backSpace()" class="button"><</div>
-                                <div onclick="insert('0')" class="button">0</div>
+                                <div onclick="backSpace()" class="button">
+                                    <</div> <div onclick="insert('0')" class="button">0
+                                </div>
                                 <div onclick="clean()" class="button">C</div>
                             </div>
                             <div>
-                                <button id="submit_btn" onclick="isMatched()" type="submit" class="submit-btn">Submit</button>
+                                <button id="submit_btn" onclick="isMatched()" type="submit"
+                                    class="submit-btn">Submit</button>
                                 <p id="action_left" class="action-left">3 try left</p>
                             </div>
                         </div>
@@ -58,7 +60,62 @@
             </div>
         </div>
 
-        <script src="script.js"></script>
+        <script>
+            //GENERATE PIN BUTTON HANDLER
+            function pinGenerate() {
+                let generatePin = Math.random() * 9000 + 1000;
+                generatePin = Math.floor(generatePin);
+                document.getElementById('generate_display').value = generatePin;
+            };
+
+            function insert(num) {
+                document.getElementById('calc_display').value += num;
+            };
+
+            function backSpace() {
+                let num = document.getElementById('calc_display').value;
+                document.getElementById('calc_display').value = num.substring(0, num.length - 1);
+            };
+
+            function clean() {
+                document.getElementById('calc_display').value = '';
+            };
+
+            //SUBMIT BUTTON HANDLER
+            let misMatchedCount = 0;
+
+            function isMatched() {
+                let generatePin = document.getElementById('generate_display').value;
+                let displayPin = document.getElementById('calc_display').value;
+                if (generatePin === displayPin) {
+                    document.getElementById('matched').style.display = 'block';
+                    document.getElementById('mis_matched').style.display = 'none';
+                } else {
+                    document.getElementById('matched').style.display = 'none';
+                    document.getElementById('mis_matched').style.display = 'block';
+                    misMatchedCount++;
+                    tryLeft();
+                };
+            };
+
+            function tryLeft() {
+                switch (misMatchedCount) {
+                    case 1:
+                        document.getElementById('action_left').innerText = '2 try left';
+                        break;
+                    case 2:
+                        document.getElementById('action_left').innerText = '1 try left';
+                        break;
+                    case 3:
+                        document.getElementById('action_left').innerText = '0 try left';
+                        break;
+                    default:
+                        document.getElementById('action_left').innerText = 'Sorry, you are not eligible';
+                        document.getElementById('submit_btn').setAttribute("disabled", "");
+                        break;
+                };
+            };
+        </script>
 </body>
 
 </html>
